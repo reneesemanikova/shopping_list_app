@@ -13,9 +13,7 @@ const Tile = createVisualComponent({
   propTypes: {
     shopping_list: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      text: PropTypes.string,
-      imageUrl: PropTypes.string,
-      averageRating: PropTypes.number.isRequired,
+      shopping_list_items: PropTypes.string,
       uuIdentityName: PropTypes.string.isRequired,
       sys: PropTypes.shape({
         cts: PropTypes.string,
@@ -54,11 +52,8 @@ const Tile = createVisualComponent({
         </Text>
         <div>
           <Text category="interface" segment="content" type="medium" colorScheme="building">
-            {props.shopping_list.text}
+            {props.shopping_list.shopping_list_items}
           </Text>
-        </div>
-        <div>
-          <img src={props.shopping_list.imageUrl} />
         </div>
         <Line significance="subdued" />
         <div>
@@ -72,7 +67,6 @@ const Tile = createVisualComponent({
           </Text>
         </div>
         <Box significance="distinct">
-          {`Average rating: ${props.shopping_list.averageRating.toFixed(props.shopping_list.averageRating % 1 ? 1 : 0)} / 5`}
           <Button icon="mdi-pencil" onClick={handleUpdate} significance="subdued" tooltip="Update" />
           <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
         </Box>
