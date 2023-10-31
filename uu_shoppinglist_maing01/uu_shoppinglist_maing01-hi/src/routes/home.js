@@ -13,6 +13,7 @@ import { handleDelete } from "../bricks/shopping-list/tile";
 import { handleUpdate } from "../bricks/shopping-list/tile";
 import ListProvider from "../bricks/shopping-list/list-provider";
 import ListView from "../bricks/shopping-list/list-view";
+import CreateView from "../bricks/shopping-list/create-view";
 
 //@@viewOff:imports
 
@@ -52,11 +53,16 @@ let Home = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        <RouteBar />
-        <ListProvider>
-        {({ shoppingList, remove, update }) => <ListView shoppingList={shoppingList} onDelete={remove} onUpdate={update} />}
-        </ListProvider>
-      </>
+    <RouteBar />
+    <ListProvider>
+      {({ shoppingList, remove, update, create }) => (
+        <>
+          <CreateView onCreate={create} style={{ maxWidth: 400, margin: "24px auto", display: "block" }} />
+          <ListView shoppingList={shoppingList} onDelete={remove} onUpdate={update} />
+        </>
+      )}
+    </ListProvider>
+  </>
     );
     //@@viewOff:render
   },
