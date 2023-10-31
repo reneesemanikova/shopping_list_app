@@ -1,52 +1,83 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
-
-//@@viewOn:constants
-//@@viewOff:constants
-
-//@@viewOn:css
-const Css = {
-  main: () => Config.Css.css({}),
-};
-//@@viewOff:css
-
-//@@viewOn:helpers
-//@@viewOff:helpers
 
 const Tile = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Tile",
-  nestingLevel: ["areaCollection", "area"],
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    shopping_list: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string,
+      imageUrl: PropTypes.string,
+      averageRating: PropTypes.number.isRequired,
+      uuIdentityName: PropTypes.string.isRequired,
+      sys: PropTypes.shape({
+        cts: PropTypes.string,
+      }),
+    }).isRequired,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {},
+  defaultProps: {
+    onUpdate: () => {},
+    onDelete: () => {},
+  },
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const { children } = props;
+    function handleDelete(event) {
+      props.onDelete(new Utils.Event(props.shopping_list, event));
+    }
+
+    function handleUpdate(event) {
+      props.onUpdate(new Utils.Event(props.shopping_list, event));
+    }
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, Tile);
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
 
-    return currentNestingLevel ? (
-      <div {...attrs}>
-        <div>Visual Component {Tile.uu5Tag}</div>
-        <Content nestingLevel={currentNestingLevel}>{children}</Content>
-      </div>
-    ) : null;
+    return (
+      <Box {...elementProps}>
+        <Text category="interface" segment="title" type="minor" colorScheme="building">
+          {props.shopping_list.name}
+        </Text>
+        <div>
+          <Text category="interface" segment="content" type="medium" colorScheme="building">
+            {props.shopping_list.text}
+          </Text>
+        </div>
+        <div>
+          <img src={props.shopping_list.imageUrl} />
+        </div>
+        <Line significance="subdued" />
+        <div>
+          <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
+            {props.shopping_list.uuIdentityName}
+          </Text>
+        </div>
+        <div>
+          <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
+            <DateTime value={props.shopping_list.sys.cts} />
+          </Text>
+        </div>
+        <Box significance="distinct">
+          {`Average rating: ${props.shopping_list.averageRating.toFixed(props.shopping_list.averageRating % 1 ? 1 : 0)} / 5`}
+          <Button icon="mdi-pencil" onClick={handleUpdate} significance="subdued" tooltip="Update" />
+          <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+        </Box>
+      </Box>
+    );
     //@@viewOff:render
   },
 });
