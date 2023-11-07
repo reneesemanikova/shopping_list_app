@@ -1,8 +1,15 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, Content } from "uu5g05";
+import { createVisualComponent, Utils, Content, useState } from "uu5g05";
 import Config from "./config/config.js";
 import Tile from "./tile";
 import { useAlertBus } from "uu5g05-elements";
+import { Form, FormText, SubmitButton, CancelButton,Button,Toggle } from "uu5g05-forms";
+
+
+
+  
+
+
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,7 +24,7 @@ const Css = {
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-const ListView = createVisualComponent({
+const ItemView = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListView",
   nestingLevel: ["areaCollection", "area"],
@@ -46,29 +53,32 @@ function showError(error, header = "") {
 }
 
 function handleDelete(event) {
-  const shopping_list = event.data;
+  const items = event.data;
 
   try {
-    props.onDelete(shopping_list);
+    props.onDelete(items);
     addAlert({
-      message: `The shopping list ${shopping_list.name} has been deleted.`,
+      message: `The shopping list item ${items.name} has been deleted.`,
       priority: "success",
       durationMs: 2000,
     });
   } catch (error) {
-    ListView.logger.error("Error deleting shopping list", error);
+    ItemView.logger.error("Error deleting shopping list", error);
     showError(error, "Shopping list delete failed!");
   }
 }
 
-function handleUpdate(event) {
+function handleUpdate(item) {
+  console.log(item);
+  props.onUpdate(item.name, !item.resolved);
+  /*
   try {
     console.log("Zavolal sa handle update",event)
     props.onUpdate(event.data);
   } catch (error) {
-    ListView.logger.error("Error updating shopping list", error);
+    ItemView.logger.error("Error updating shopping list", error);
     showError(error, "Shopping list update failed!");
-  }
+  }*/
 }
     //@@viewOff:private
 
@@ -77,18 +87,21 @@ function handleUpdate(event) {
 
     //@@viewOn:render
     const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ListView);
+    const currentNestingLevel = Utils.NestingLevel.getNestingLevel(props, ItemView);
 
+    console.log("props" ,props)
     return (
       <div {...attrs}>
-        {props.shoppingList.map((shopping_list) => (
-          <Tile
-            key={shopping_list.id}
-            shopping_list={shopping_list}
-            onDelete={handleDelete}
-            onUpdate={handleUpdate}
-            style={{ width: 640, margin: "24px auto" }}
-          />
+        {props.item.name}
+        {props.item.shopping_list_items.map((item) => (
+          <div key={item.name}>
+            {item.name}{' '} {/* Add a space here */}
+            
+            {' '} {/* Add a space here */}
+            <input type="checkbox" checked={item.resolved} onClick={()=> handleUpdate(item)} />
+            {item.resolved ? 'resolved' : 'not resolved'}
+            
+          </div>
         ))}
       </div>
     );
@@ -97,6 +110,6 @@ function handleUpdate(event) {
 });
 
 //@@viewOn:exports
-export { ListView };
-export default ListView;
+export { ItemView };
+export default ItemView;
 //@@viewOff:exports

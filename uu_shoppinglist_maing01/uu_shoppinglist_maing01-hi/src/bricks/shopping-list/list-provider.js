@@ -78,20 +78,22 @@ const ListProvider = createComponent({
     }
   
     function create(values) {
-      const shopping_list = {
+      const shoppingList = {
         ...values,
         id: Utils.String.generateId(),
-        uuIdentityName: "Gerald of Rivia",
+        name: "Gerald of Rivia",
+        shopping_list_items: "carrot, meat",
         sys: {
           cts: new Date().toISOString(),
         },
       };
     
-      setShoppingList((prevShoppingList) => [...prevShoppingList, shopping_list]);
-      return shopping_list;
+      setShoppingList((prevShoppingList) => [...prevShoppingList, shoppingList]);
+      return shoppingList;
     }
 
     function update() {
+      console.log("Zavolali sme update 2");
       throw new Error("Shopping list update is not implemented yet.");
     }
     //@@viewOff:private

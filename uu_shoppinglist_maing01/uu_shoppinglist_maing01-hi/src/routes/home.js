@@ -57,8 +57,8 @@ let Home = createVisualComponent({
     <ListProvider>
       {({ shoppingList, remove, update, create }) => (
         <>
-          <CreateView onCreate={create} style={{ maxWidth: 400, margin: "24px auto", display: "block" }} />
           <ListView shoppingList={shoppingList} onDelete={remove} onUpdate={update} />
+          <CreateView onCreate={create} style={{ maxWidth: 400, margin: "24px auto", display: "block" }} />
         </>
       )}
     </ListProvider>
