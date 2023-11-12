@@ -71,15 +71,17 @@ function handleDelete(event) {
 function handleUpdate(item) {
   console.log(item);
   props.onUpdate(item.name, !item.resolved);
-  /*
+}
+/*
+function handleNameUpdate(event) {
   try {
     console.log("Zavolal sa handle update",event)
-    props.onUpdate(event.data);
+    //props.onUpdate(item.data);
   } catch (error) {
-    ItemView.logger.error("Error updating shopping list", error);
+    ListView.logger.error("Error updating shopping list", error);
     showError(error, "Shopping list update failed!");
-  }*/
-}
+  }
+}*/
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -92,7 +94,7 @@ function handleUpdate(item) {
     console.log("props" ,props)
     return (
       <div {...attrs}>
-        {props.item.name}
+        {props.item.name} 
         {props.item.shopping_list_items.map((item) => (
           <div key={item.name}>
             {item.name}{' '} {/* Add a space here */}
