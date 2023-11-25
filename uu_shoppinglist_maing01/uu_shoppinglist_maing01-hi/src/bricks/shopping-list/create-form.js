@@ -48,7 +48,7 @@ const CreateForm = createVisualComponent({
     const { elementProps } = Utils.VisualComponent.splitProps(props);
 
     return (
-      <Form {...elementProps} onSubmit={props.onSubmit}>
+      <Form {...elementProps} onSubmit={props.onCreate}>
          <FormText name="name" label="Name" required />
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8 }}>
           <CancelButton onClick={props.onCancel}>Cancel</CancelButton>

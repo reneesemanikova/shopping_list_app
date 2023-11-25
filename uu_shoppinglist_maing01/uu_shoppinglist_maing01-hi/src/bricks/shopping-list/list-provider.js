@@ -74,10 +74,10 @@ const ListProvider = createComponent({
 
     function remove(shopping_list) {
       setShoppingList((prevShoppingList) => prevShoppingList.filter((item) => item.id !== shopping_list.id));
-     //shoppingList = shoppingList.filter((item) => item.id !== shopping_list.id);
     }
   
-    function create(values) {
+    function createShoppinglist(values) {
+      console.log( "shoppinglist provider createShoppinglist ",values)
       const shoppingList = {
         ...values,
         id: Utils.String.generateId(),
@@ -99,7 +99,7 @@ const ListProvider = createComponent({
     //@@viewOff:private
   
     //@@viewOn:render
-    const value = { shoppingList, remove, update };
+    const value = { shoppingList, remove, update,createShoppinglist };
     return typeof props.children === "function" ? props.children(value) : props.children;
     //@@viewOff:render
   }
