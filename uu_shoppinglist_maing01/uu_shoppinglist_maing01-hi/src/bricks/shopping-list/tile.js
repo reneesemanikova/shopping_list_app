@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
+import { Box, Text, Line, Button, DateTime, Link } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -44,12 +44,15 @@ const Tile = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
+    const showDelete =  false //props.uuIdentity == mojeidentita.neco
 
     return (
       <Box {...elementProps}>
-        <Text category="interface" segment="title" type="minor" colorScheme="building">
-          {props.shopping_list.name}
-        </Text>
+        <Link href="shoppinglist"> 
+          <Text category="interface" segment="title" type="minor" colorScheme="blue">
+            {props.shopping_list.name}
+          </Text>
+        </Link>
         <div>
           <Text category="interface" segment="content" type="medium" colorScheme="building">
             {props.shopping_list.shopping_list_items}
@@ -68,7 +71,7 @@ const Tile = createVisualComponent({
         </div>
         <Box significance="distinct">
           <Button icon="mdi-pencil" onClick={handleUpdate} significance="subdued" tooltip="Update" />
-          <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+          {showDelete&& <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />}
         </Box>
       </Box>
     );

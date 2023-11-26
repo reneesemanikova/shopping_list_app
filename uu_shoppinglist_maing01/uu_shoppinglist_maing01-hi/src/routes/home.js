@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import { Utils, createVisualComponent, useSession,useState, Lsi } from "uu5g05";
+import {  SubmitButton, Button } from "uu5g05-forms";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { withRoute } from "uu_plus4u5g02-app";
@@ -62,13 +63,13 @@ let Home = createVisualComponent({
       {({ shoppingList, remove, update, createShoppinglist }) => (
         <>
           <ListView shoppingList={shoppingList} onDelete={remove} onUpdate={update}/>
-          <CreateForm  onCreate={createShoppinglist}  style={{ maxWidth: 400, margin: "24px auto", display: "block" }} />
           <Uu5Elements.Modal header={"header asi"} open={showModal} onClose={() => setShowModal(false)}>
-      "joooo"
-    </Uu5Elements.Modal>        
+            <CreateForm  onCreate={createShoppinglist} onCancel={() => setShowModal(false)} style={{ maxWidth: 400, margin: "24px auto", display: "block" }} />
+          </Uu5Elements.Modal>        
         </>
       )}
     </ListProvider>
+    <SubmitButton  onClick={() => setShowModal(true)} >Create shopping list</SubmitButton>   
   </>
     );
     //@@viewOff:render

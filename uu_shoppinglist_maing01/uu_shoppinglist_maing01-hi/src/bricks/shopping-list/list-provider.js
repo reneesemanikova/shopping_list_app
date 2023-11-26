@@ -45,6 +45,7 @@ let shoppingList = [
     id: Utils.String.generateId(),
     name: "School shopping list",
     shopping_list_items: "pencil, book",
+    uuIdentityId:"123",
     uuIdentityName: "Bart Simpson",
     sys: { cts: "2021-02-14T10:48:38.990Z" },
   },
@@ -79,10 +80,10 @@ const ListProvider = createComponent({
     function createShoppinglist(values) {
       console.log( "shoppinglist provider createShoppinglist ",values)
       const shoppingList = {
-        ...values,
         id: Utils.String.generateId(),
-        name: "Gerald of Rivia",
-        shopping_list_items: "carrot, meat",
+        name: values.data.value.name,
+        shopping_list_items: "",
+        //uuIdentityId:
         sys: {
           cts: new Date().toISOString(),
         },

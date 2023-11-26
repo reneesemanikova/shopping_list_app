@@ -31,7 +31,7 @@ const CreateForm = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    onSubmit: () => {},
+    onCreate: () => {},
     onCancel: () => {},
   },
   //@@viewOff:defaultProps
@@ -46,9 +46,14 @@ const CreateForm = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
+    
+    function onsSubmitHandle(shopingListIn) {
+      props.onCreate(shopingListIn);
+      props.onCancel();
+    }
 
     return (
-      <Form {...elementProps} onSubmit={props.onCreate}>
+      <Form {...elementProps} onSubmit={onsSubmitHandle}>
          <FormText name="name" label="Name" required />
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8 }}>
           <CancelButton onClick={props.onCancel}>Cancel</CancelButton>
