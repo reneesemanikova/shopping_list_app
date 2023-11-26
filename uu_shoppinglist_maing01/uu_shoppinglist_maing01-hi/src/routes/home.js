@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent, useSession, Lsi } from "uu5g05";
+import { Utils, createVisualComponent, useSession,useState, Lsi } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { withRoute } from "uu_plus4u5g02-app";
@@ -52,6 +52,8 @@ let Home = createVisualComponent({
 
 
   render() {
+
+    const [showModal, setShowModal] = useState(false);
     //@@viewOn:render
     return (
       <>
@@ -61,6 +63,9 @@ let Home = createVisualComponent({
         <>
           <ListView shoppingList={shoppingList} onDelete={remove} onUpdate={update}/>
           <CreateForm  onCreate={createShoppinglist}  style={{ maxWidth: 400, margin: "24px auto", display: "block" }} />
+          <Uu5Elements.Modal header={"header asi"} open={showModal} onClose={() => setShowModal(false)}>
+      "joooo"
+    </Uu5Elements.Modal>        
         </>
       )}
     </ListProvider>
@@ -76,3 +81,5 @@ Home = withRoute(Home, { authenticated: true });
 export { Home };
 export default Home;
 //@@viewOff:exports
+
+
