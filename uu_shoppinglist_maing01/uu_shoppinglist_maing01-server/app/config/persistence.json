@@ -6,6 +6,9 @@
       "schemaMap": {
         "shoppinglistMain": {
           "realization": "dao/ShoppinglistMainMongo"
+        },
+        "shoppinglist": {
+          "realization": "dao/ShoppinglistMongo"
         }
       }
     }

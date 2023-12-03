@@ -25,6 +25,11 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "shoppinglist/create": {
+        "realization": "api/controllers/ShoppinglistController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
